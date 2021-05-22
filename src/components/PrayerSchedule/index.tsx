@@ -12,7 +12,7 @@ const PrayerScheduleList = styled('div')`
     flex-direction: row;
     overflow-x: auto;
 `
-function PrayerSchedule({data}: PrayerScheduleProps) {
+function PrayerSchedule({ data }: PrayerScheduleProps) {
 
     const refElement = useRef<null | HTMLDivElement>(null)
     
@@ -45,6 +45,7 @@ function PrayerSchedule({data}: PrayerScheduleProps) {
                     const nextTiming = data.timings[nextKey]
                     const isActive = isCurrentTimingActive(currentTiming, nextTiming)
                     return ( <PrayerTiming
+                        key={key}
                         label={key}
                         timing={currentTiming}
                         isTimingActive={isActive}

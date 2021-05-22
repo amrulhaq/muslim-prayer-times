@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PrayerSchedule from '../components/PrayerSchedule'
+import PrayerClock from '../components/PrayerClock'
 import { getPrayerTimings } from '../lib/services/Aladhan'
 import { getCurrentPrayerTimings } from '../lib/util/Aladhan'
 
@@ -17,6 +18,7 @@ function PrayerTimes() {
     const [ date ] = useState(new Date())
     const [ prayerTimesData, setPrayerTimesData ] = useState<any>(null)
     const [ coordinates, setCoordinates ] = useState<ICoordinates|undefined>(undefined)
+    const [ timezone, setTimezone ] = useState<string|undefined>(undefined)
 
     useEffect(() => {
         const success = (position: globalThis.GeolocationPosition) => {
@@ -35,6 +37,7 @@ function PrayerTimes() {
             const res = await getPrayerTimings(lat, long, date)
             const dataForCurrentDate = getCurrentPrayerTimings(res.data)
             setPrayerTimesData(dataForCurrentDate)
+            setTimezone(dataForCurrentDate.meta?.timezone)
         }
 
         if (coordinates) {
@@ -45,8 +48,7 @@ function PrayerTimes() {
 
     return prayerTimesData ? (
         <PrayerTimesPage>
-            <h1>Prayer Times</h1>
-            <p>Date: {date.toDateString()}</p>
+            <PrayerClock timezone={timezone}/>
             <PrayerSchedule data={prayerTimesData} />
         </PrayerTimesPage>
     ) : (<div></div>)
