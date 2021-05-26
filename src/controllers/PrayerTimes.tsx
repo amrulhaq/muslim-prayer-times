@@ -12,6 +12,8 @@ interface ICoordinates {
 
 const PrayerTimesPage = styled('div')`
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 `
 
 function PrayerTimes() {

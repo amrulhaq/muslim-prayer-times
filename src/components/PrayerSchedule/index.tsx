@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import PrayerTiming from '../PrayerTiming'
 import { isCurrentTimingActive, getDateFromTiming } from '../../lib/util/Aladhan'
+import * as breakpoints from '../../styles/breakpoints'
 
 interface PrayerScheduleProps {
     data: any
@@ -11,6 +12,11 @@ const PrayerScheduleList = styled('div')`
     display: flex;
     flex-direction: row;
     overflow-x: auto;
+    
+    @media (min-width: ${breakpoints.md}) {
+        align-items: center;
+        justify-content: center;
+    }
 `
 function PrayerSchedule({ data }: PrayerScheduleProps) {
 
